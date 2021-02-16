@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: alpaca-prod
+    labels:
+        app: alpaca
+        version: 1.0.0
+        env: prod
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: alpaca
+    template:
+        metadata:
+            labels:
+                app: alpaca
+        spec:
+            containers:
+                - image: gcr.io/k8s-vr-2021/kuard-amd64:blue
+                  name: alpaca-prod
+                  ports:
+                      - containerPort: 8080
+                        name: http
+                        protocol: TCP
+                  readinessProbe:
+                      httpGet:
+                          path: /ready
+                          port: 8080
+                      periodSeconds: 2
+                      initialDelaySeconds: 0
+                      failureThreshold: 3
+                      successThreshold: 1
