@@ -23,12 +23,12 @@ kubectl explain <object>                        # get the documentation for obje
 
 ```bash
 # Get commands with basic output
-kubectl get services                          # List all services in the namespace
-kubectl get pods --all-namespaces             # List all pods in all namespaces
-kubectl get pods -o wide                      # List all pods in the current namespace, with more details
-kubectl get deployment <deployment-name>      # List a particular deployment
-kubectl get pods                              # List all pods in the namespace
-kubectl get pod <pod-name> -o yaml            # Get a pod's YAML
+kubectl get services                          # list all services in the namespace
+kubectl get pods --all-namespaces             # list all pods in all namespaces
+kubectl get pods -o wide                      # list all pods in the current namespace, with more details
+kubectl get deployment <deployment-name>      # list a particular deployment
+kubectl get pods                              # list all pods in the namespace
+kubectl get pod <pod-name> -o yaml            # get a pod's YAML
 
 # Describe commands with verbose output
 kubectl describe nodes <node-name>
