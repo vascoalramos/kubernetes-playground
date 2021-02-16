@@ -26,11 +26,13 @@ kubectl explain <object>                        # get the documentation for obje
 kubectl get services                          # List all services in the namespace
 kubectl get pods --all-namespaces             # List all pods in all namespaces
 kubectl get pods -o wide                      # List all pods in the current namespace, with more details
-kubectl get deployment my-dep                 # List a particular deployment
+kubectl get deployment <deployment-name>      # List a particular deployment
 kubectl get pods                              # List all pods in the namespace
-kubectl get pod my-pod -o yaml                # Get a pod's YAML
+kubectl get pod <pod-name> -o yaml            # Get a pod's YAML
 
 # Describe commands with verbose output
-kubectl describe nodes my-node
-kubectl describe pods my-pod
+kubectl describe nodes <node-name>
+kubectl describe pods <pod-name>
+kubectl describe deployments <deployment-name>
+kubectl describe services <service-name>
 ```
