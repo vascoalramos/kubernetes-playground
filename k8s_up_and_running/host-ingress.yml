@@ -7,6 +7,14 @@ spec:
         - host: alpaca.vascoalramos.me
           http:
               paths:
-                  - backend:
+                  - path: /
+                    backend:
                         serviceName: alpaca
+                        servicePort: 8080
+        - host: bandicoot.vascoalramos.me
+          http:
+              paths:
+                  - path: /
+                    backend:
+                        serviceName: bandicoot
                         servicePort: 8080
