@@ -4,13 +4,17 @@ metadata:
     name: path-ingress
 spec:
     rules:
-        - http:
+        - host: alpaca.vascoalramos.me
+          http:
               paths:
-                  - path: "/"
+                  - path: /
                     backend:
                         serviceName: alpaca
                         servicePort: 8080
-                  - path: "/b/"
+        - host: bandicoot.vascoalramos.me
+          http:
+              paths:
+                  - path: /
                     backend:
                         serviceName: bandicoot
                         servicePort: 8080
