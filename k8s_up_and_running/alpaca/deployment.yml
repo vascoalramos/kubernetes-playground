@@ -8,6 +8,14 @@ metadata:
         env: prod
 spec:
     replicas: 3
+    revisionHistoryLimit: 14
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxSurge: 25% # max number or percentage of extra resources (pods) during rollout
+            maxUnavailable: 25% # max number or percentage of unavailable resources (pods) during rollout
+    minReadySeconds: 30 # number of seconds to wait until a pod can be evaluated as ready or not
+    progressDeadlineSeconds: 600 # timeout (in seconds) of rollout process
     selector:
         matchLabels:
             app: alpaca
@@ -15,9 +23,12 @@ spec:
         metadata:
             labels:
                 app: alpaca
+            annotations:
+                kubernetes.io/change-cause: "Change revisionHistoryLimit"
         spec:
             containers:
-                - image: gcr.io/k8s-vr-2021/kuard-amd64:blue
+                - image: gcr.io/kuar-demo/kuard-amd64:blue
+                  imagePullPolicy: Always
                   name: alpaca-prod
                   ports:
                       - containerPort: 8080
