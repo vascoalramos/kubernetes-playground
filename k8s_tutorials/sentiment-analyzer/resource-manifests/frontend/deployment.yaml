@@ -1,28 +1,31 @@
 apiVersion: apps/v1
-kind: Deployment                                          # 1
+kind: Deployment
 metadata:
-  name: sa-frontend
-  labels:
-    app: sa-frontend
+    name: sa-frontend
+    labels:
+        app: sa
+        tier: frontend
 spec:
-  selector:
-    matchLabels:
-      app: sa-frontend
-  replicas: 2                                             # 2
-  minReadySeconds: 15
-  strategy:
-    type: RollingUpdate                                   # 3
-    rollingUpdate: 
-      maxUnavailable: 1                                   # 4
-      maxSurge: 1                                         # 5
-  template:
-    metadata:
-      labels:
-        app: sa-frontend                                  # 6
-    spec:
-      containers:
-        - image: rinormaloku/sentiment-analysis-frontend
-          imagePullPolicy: Always                         # 7
-          name: sa-frontend
-          ports:
-            - containerPort: 80
+    selector:
+        matchLabels:
+            app: sa
+            tier: frontend
+    replicas: 2
+    minReadySeconds: 15
+    strategy:
+        type: RollingUpdate
+        rollingUpdate:
+            maxUnavailable: 1
+            maxSurge: 1
+    template:
+        metadata:
+            labels:
+                app: sa
+                tier: frontend
+        spec:
+            containers:
+                - name: sa-frontend
+                  image: vascoalramos/sa-frontend
+                  imagePullPolicy: Always
+                  ports:
+                      - containerPort: 80
