@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: frontend
+    labels:
+        app: guestbook
+        tier: frontend
+spec:
+    selector:
+        matchLabels:
+            app: guestbook
+            tier: frontend
+    replicas: 3
+    template:
+        metadata:
+            labels:
+                app: guestbook
+                tier: frontend
+        spec:
+            containers:
+                - name: guestbook
+                  image: paulczar/gb-frontend:v5
+                  resources:
+                      requests:
+                          cpu: 0.1
+                          memory: 100Mi
+                  env:
+                      - name: GET_HOSTS_FROM
+                        value: dns
+                  ports:
+                      - containerPort: 80
