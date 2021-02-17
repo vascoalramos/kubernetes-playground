@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "material-ui": "^0.20.0",
-    "prop-types": "latest",
+    "material-ui": "^0.20.2",
+    "prop-types": "^15.7.2",
     "react": "^16.2.0",
-    "react-dom": "^16.2.1",
-    "react-scripts": "^1.0.17"
+    "react-dom": "^16.14.0",
+    "react-scripts": "^4.0.2"
   },
   "scripts": {
     "start": "react-scripts start",
