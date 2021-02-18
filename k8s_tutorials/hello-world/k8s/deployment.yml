@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: node-hello-world
+    labels:
+        app: hello-world
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: hello-world
+    template:
+        metadata:
+            labels:
+                app: hello-world
+            annotations:
+                kubernetes.io/change-cause: "Update image to version 3.0"
+        spec:
+            containers:
+                - name: node-hello-world
+                  image: vascoalramos/node-hello-world:3.0
+                  ports:
+                      - containerPort: 3000
