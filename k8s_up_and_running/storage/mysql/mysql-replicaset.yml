@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+    name: mysqldb-rs
+    labels:
+        app: mysql-rs
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: mysql10
+    template:
+        metadata:
+            labels:
+                app: mysql10
+        spec:
+            volumes:
+                - name: mysql-db
+                  persistentVolumeClaim:
+                      claimName: mysqldb10
+            containers:
+                - name: mysqldb
+                  image: mysql:5.6
+                  env:
+                      - name: MYSQL_ROOT_PASSWORD
+                        value: passw0rd
+                  ports:
+                      - containerPort: 3306
+                  volumeMounts:
+                      - name: mysql-db
+                        mountPath: "/var/lib/mysql"

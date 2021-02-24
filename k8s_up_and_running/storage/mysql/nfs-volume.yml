@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+    name: mysqldb10
+    labels:
+        volume: mysqldb-volume10
+spec:
+    accessModes:
+        - ReadWriteOnce
+    capacity:
+        storage: 1Gi
+    nfs:
+        server: 10.99.252.70
+        path: "/exports"
