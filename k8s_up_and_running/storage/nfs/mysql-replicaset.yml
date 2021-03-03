@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-    name: mysqldb-rs
+    name: mysqldb
     labels:
-        app: mysql-rs
+        app: mysql
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: mysql10
+            app: mysql
     template:
         metadata:
             labels:
-                app: mysql10
+                app: mysql
         spec:
             volumes:
                 - name: mysql-db
                   persistentVolumeClaim:
-                      claimName: mysqldb10
+                      claimName: mysqldb
             containers:
                 - name: mysqldb
                   image: mysql:5.6
