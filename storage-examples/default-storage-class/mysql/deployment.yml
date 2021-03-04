@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mysql
+    labels:
+        app: wordpress
+        tier: db
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: wordpress
+            tier: db
+    template:
+        metadata:
+            labels:
+                app: wordpress
+                tier: db
+            annotations:
+                kubernetes.io/change-cause: "Change image version (5.6 -> 8.0)"
+        spec:
+            containers:
+                - image: mysql:8.0
+                  name: mysql
+                  args:
+                      - "--default-authentication-plugin=mysql_native_password"
+                  env:
+                      - name: MYSQL_ROOT_PASSWORD
+                        value: passw0rd
+                  ports:
+                      - containerPort: 3306
+                        name: mysql
+                  volumeMounts:
+                      - name: mysql-persistent-storage
+                        mountPath: /var/lib/mysql
+            volumes:
+                - name: mysql-persistent-storage
+                  persistentVolumeClaim:
+                      claimName: mysql-pvc

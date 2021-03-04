@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: wordpress
+    labels:
+        app: wordpress
+        tier: frontend
+spec:
+    selector:
+        matchLabels:
+            app: wordpress
+            tier: frontend
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                app: wordpress
+                tier: frontend
+            annotations:
+                kubernetes.io/change-cause: "Change image version (4.8-apache -> 5.6-apache)"
+        spec:
+            containers:
+                - image: wordpress:5.6-apache
+                  name: wordpress
+                  env:
+                      - name: WORDPRESS_DB_HOST
+                        value: mysql
+                      - name: WORDPRESS_DB_PASSWORD
+                        value: passw0rd
+                  ports:
+                      - name: wordpress
+                        containerPort: 80
+                  volumeMounts:
+                      - name: wordpress-persistent-storage
+                        mountPath: /var/www/html
+            volumes:
+                - name: wordpress-persistent-storage
+                  persistentVolumeClaim:
+                      claimName: wordpress-pvc
