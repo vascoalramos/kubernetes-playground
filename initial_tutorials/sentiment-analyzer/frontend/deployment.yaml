@@ -4,12 +4,12 @@ metadata:
     name: sa-frontend
     labels:
         app: sa
-        tier: frontend
+        component: frontend
 spec:
     selector:
         matchLabels:
             app: sa
-            tier: frontend
+            component: frontend
     replicas: 2
     minReadySeconds: 15
     strategy:
@@ -21,11 +21,12 @@ spec:
         metadata:
             labels:
                 app: sa
-                tier: frontend
+                component: frontend
+            annotations:
+                kubernetes.io/change-cause: "Change image version (latest ->                   image: rinormaloku/sentiment-analysis-frontend:feedback)"
         spec:
             containers:
                 - name: sa-frontend
-                  image: vascoalramos/sa-frontend
+                  image: rinormaloku/sentiment-analysis-frontend:feedback
                   imagePullPolicy: Always
                   ports:
-                      - containerPort: 80

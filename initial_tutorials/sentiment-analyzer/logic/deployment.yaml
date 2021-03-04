@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: sa-frontend
+    name: sa-logic
     labels:
         app: sa
-        tier: frontend
+        component: logic
 spec:
     selector:
         matchLabels:
             app: sa
-            tier: frontend
+            component: logic
     replicas: 2
     minReadySeconds: 15
     strategy:
@@ -21,13 +21,11 @@ spec:
         metadata:
             labels:
                 app: sa
-                tier: frontend
-            annotations:
-                kubernetes.io/change-cause: "Change image version (latest -> green)"
+                component: logic
         spec:
             containers:
-                - name: sa-frontend
-                  image: rinormaloku/sentiment-analysis-frontend:green
+                - name: sa-logic
+                  image: rinormaloku/sentiment-analysis-logic:feedback
                   imagePullPolicy: Always
                   ports:
-                      - containerPort: 80
+                      - containerPort: 5000

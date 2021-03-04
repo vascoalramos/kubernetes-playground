@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-    name: sa-frontend-lb
+    name: sa-feedback
+    labels:
+        app: sa
+        component: feedback
 spec:
-    type: LoadBalancer
     ports:
         - port: 80
           protocol: TCP
           targetPort: 80
     selector:
         app: sa
-        tier: frontend
+        component: feedback

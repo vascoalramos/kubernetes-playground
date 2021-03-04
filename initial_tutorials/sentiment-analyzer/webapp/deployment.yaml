@@ -4,12 +4,12 @@ metadata:
     name: sa-webapp
     labels:
         app: sa
-        tier: webapp
+        component: webapp
 spec:
     selector:
         matchLabels:
             app: sa
-            tier: webapp
+            component: webapp
     replicas: 2
     minReadySeconds: 15
     strategy:
@@ -21,10 +21,10 @@ spec:
         metadata:
             labels:
                 app: sa
-                tier: webapp
+                component: webapp
         spec:
             containers:
-                - image: vascoalramos/sa-webapp
+                - image: rinormaloku/sentiment-analysis-web-app:feedback
                   imagePullPolicy: Always
                   name: sa-webapp
                   env:

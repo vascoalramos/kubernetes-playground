@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: sa-feedback
+    labels:
+        app: sa
+        component: feedback
+spec:
+    selector:
+        matchLabels:
+            app: sa
+            component: feedback
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                app: sa
+                component: feedback
+        spec:
+            containers:
+                - name: sa-feedback
+                  image: rinormaloku/sentiment-analysis-feedback:feedback
+                  imagePullPolicy: Always
+                  env:
+                      - name: DATABASE_DIR
+                        value: /usr/db
+                  ports:
+                      - containerPort: 80
+                  volumeMounts:
+                      - name: sqlite-volume
+                        mountPath: /usr/db
+            volumes:
+                - name: sqlite-volume
+                  persistentVolumeClaim:
+                      claimName: sqlite-pvc
